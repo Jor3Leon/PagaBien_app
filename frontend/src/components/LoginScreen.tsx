@@ -52,11 +52,10 @@ export const LoginScreen: React.FC = () => {
             client_id: clientId,
             callback: async (response: any) => {
               if (response.credential) {
-                setLoading(true);
                 try {
+                  setLoading(true);
                   const res = await authenticateGoogleUser({ credential: response.credential });
-                  if (res.offline) setOfflineMode(true);
-                  if (res.user) {
+                  if (res && res.user) {
                     login(res.user);
                   }
                 } catch (e: any) {
@@ -78,7 +77,6 @@ export const LoginScreen: React.FC = () => {
               shape: 'pill',
             });
           }
-          setGisReady(true);
           return; // Initialized successfully
         }
       } catch (e) {
@@ -113,7 +111,6 @@ export const LoginScreen: React.FC = () => {
         picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(capitalizedName)}&background=10b981&color=fff`,
       });
 
-      if (res.offline) setOfflineMode(true);
       if (res.user) {
         login(res.user);
       }
@@ -141,7 +138,6 @@ export const LoginScreen: React.FC = () => {
         email: email.trim().toLowerCase(),
         picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(capitalizedName)}&background=10b981&color=fff`,
       });
-      if (res.offline) setOfflineMode(true);
       if (res.user) {
         login(res.user);
       }
@@ -160,7 +156,6 @@ export const LoginScreen: React.FC = () => {
         email: 'evaluador@pagabien.app',
         picture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150',
       });
-      if (res.offline) setOfflineMode(true);
       if (res.user) {
         login(res.user);
       }
