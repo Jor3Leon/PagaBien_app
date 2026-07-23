@@ -185,11 +185,52 @@ export const LoginScreen: React.FC = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '24px',
+      padding: '16px',
       position: 'relative',
-      overflow: 'hidden',
-      fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+      overflowX: 'hidden',
+      fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
+      boxSizing: 'border-box'
     }}>
+      {/* Native CSS Responsive Media Queries */}
+      <style>{`
+        .login-card {
+          width: 100%;
+          max-width: 440px;
+          background: rgba(15, 23, 42, 0.75);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 24px;
+          padding: 36px 32px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.1);
+          position: relative;
+          z-index: 10;
+          color: #f8fafc;
+          box-sizing: border-box;
+          transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 480px) {
+          .login-card {
+            padding: 24px 20px !important;
+            border-radius: 20px !important;
+          }
+          .login-header-logo {
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 1.3rem !important;
+            margin-bottom: 10px !important;
+          }
+          .login-header-title {
+            font-size: 1.6rem !important;
+          }
+          .login-header-desc {
+            font-size: 0.775rem !important;
+            margin-top: 4px !important;
+          }
+        }
+      `}</style>
+
       {/* Decorative Grid Background */}
       <div style={{
         position: 'absolute',
@@ -200,24 +241,11 @@ export const LoginScreen: React.FC = () => {
         opacity: 0.6
       }} />
 
-      {/* Main Glassmorphic Container */}
-      <div style={{
-        width: '100%',
-        maxWidth: '460px',
-        background: 'rgba(15, 23, 42, 0.75)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        borderRadius: '24px',
-        padding: '36px 32px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.1)',
-        position: 'relative',
-        zIndex: 10,
-        color: '#f8fafc'
-      }}>
+      {/* Main Glassmorphic Container with responsive class */}
+      <div className="login-card">
         {/* Brand Header */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '28px' }}>
-          <div style={{
+          <div className="login-header-logo" style={{
             width: '60px',
             height: '60px',
             background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #4f46e5 100%)',
@@ -234,7 +262,7 @@ export const LoginScreen: React.FC = () => {
           }}>
             PB
           </div>
-          <h1 style={{
+          <h1 className="login-header-title" style={{
             fontSize: '2rem',
             fontWeight: 800,
             letterSpacing: '-0.5px',
@@ -245,7 +273,7 @@ export const LoginScreen: React.FC = () => {
           }}>
             PagaBien
           </h1>
-          <p style={{ fontSize: '0.825rem', color: '#94a3b8', marginTop: '6px', maxWidth: '300px', lineHeight: 1.4 }}>
+          <p className="login-header-desc" style={{ fontSize: '0.825rem', color: '#94a3b8', marginTop: '6px', maxWidth: '300px', lineHeight: 1.4 }}>
             Suite ERP Financiera con Sincronización Google Sheets
           </p>
         </div>
