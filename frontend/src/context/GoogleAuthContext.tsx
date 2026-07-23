@@ -61,6 +61,15 @@ export const GoogleAuthProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     // Clear spreadsheet binding so next user doesn't inherit it
     setSpreadsheetIdState('');
     localStorage.removeItem('pagabien_spreadsheet_id');
+    
+    // Disable Google GIS AutoSelect on logout if loaded
+    if (window.google?.accounts?.id) {
+      try {
+        window.google.accounts.id.disableAutoSelect();
+      } catch (e) {
+        console.warn('No se pudo desactivar el autoselect de Google:', e);
+      }
+    }
   };
 
   return (

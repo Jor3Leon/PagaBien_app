@@ -50,6 +50,7 @@ export const LoginScreen: React.FC = () => {
 
           window.google.accounts.id.initialize({
             client_id: clientId,
+            auto_select: false,
             callback: async (response: any) => {
               if (response.credential) {
                 try {
@@ -66,6 +67,9 @@ export const LoginScreen: React.FC = () => {
               }
             },
           });
+
+          // Disable auto select immediately after init to prevent pre-filled email prompts
+          window.google.accounts.id.disableAutoSelect();
 
           const btnElement = document.getElementById('googleGisBtnContainer');
           if (btnElement) {
