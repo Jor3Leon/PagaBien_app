@@ -270,7 +270,7 @@ export const LoginScreen: React.FC = () => {
         )}
 
         {/* Primary Google Login Options */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%', alignItems: 'stretch' }}>
           {/* Official Google Identity SDK container if rendered */}
           {/* Custom Google Auth Button forcing Account Selection */}
           <button
