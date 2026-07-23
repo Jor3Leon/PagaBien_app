@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useGoogleAuth } from '../context/GoogleAuthContext';
 import { authenticateGoogleUser } from '../services/api';
 import { ShieldCheck, Lock, Mail, ArrowRight, Sparkles, Sheet, Smartphone, UserCheck, X } from 'lucide-react';
