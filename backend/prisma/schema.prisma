@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Ingreso {
+  id             String   @id @default(uuid())
+  userEmail      String   @default("global")
+  fecha          String
+  descripcion    String
+  categoria      String
+  monto          Float
+  estado         String   @default("Completado")
+  comprobanteUrl String?
+  createdAt      DateTime @default(now())
+}
+
+model Gasto {
+  id             String   @id @default(uuid())
+  userEmail      String   @default("global")
+  fecha          String
+  descripcion    String
+  categoria      String
+  monto          Float
+  estado         String   @default("Completado")
+  comprobanteUrl String?
+  createdAt      DateTime @default(now())
+}
+
+model CuentaPorPagar {
+  id          String   @id @default(uuid())
+  userEmail   String   @default("global")
+  fecha       String
+  descripcion String
+  categoria   String
+  monto       Float
+  estado      String   @default("Pendiente")
+  createdAt   DateTime @default(now())
+}
