@@ -111,14 +111,14 @@ export const SharedModuleView: React.FC<SharedModuleProps> = ({
   };
 
   return (
-    <div className="animate-fade-in" style={{ padding: '24px' }}>
+    <div className="dashboard-container">
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <div>
+      <div className="module-header-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div className="module-header-info">
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800 }}>{title}</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{subtitle}</p>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="module-header-actions" style={{ display: 'flex', gap: '10px' }}>
           <button className="btn btn-secondary" onClick={() => setIsSyncModalOpen(true)}>
             <RefreshCw size={16} /> Sincronizar Google Sheets
           </button>
@@ -132,7 +132,7 @@ export const SharedModuleView: React.FC<SharedModuleProps> = ({
       </div>
 
       {/* Selector de Mes & Control Bar */}
-      <div className="glass-card" style={{ padding: '16px', marginBottom: '24px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div className="glass-card filter-bar" style={{ padding: '16px', marginBottom: '24px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
         
         {/* Selector de Mes */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-hover)', padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
@@ -185,14 +185,14 @@ export const SharedModuleView: React.FC<SharedModuleProps> = ({
         </div>
 
         {/* Resumen Total del Mes Filtrado */}
-        <div style={{ marginLeft: 'auto', background: 'var(--primary-light)', padding: '6px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--primary-border)' }}>
+        <div style={{ background: 'var(--primary-light)', padding: '6px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid ' + (title.includes('Gastos') || title.includes('Pagar') ? 'var(--danger)' : 'var(--primary-border)') }}>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Total Filtrado: </span>
-          <strong style={{ color: 'var(--primary)', fontSize: '0.95rem' }}>{formatAmount(totalMes)}</strong>
+          <strong style={{ color: title.includes('Gastos') || title.includes('Pagar') ? 'var(--danger-text)' : 'var(--primary)', fontSize: '0.95rem' }}>{formatAmount(totalMes)}</strong>
         </div>
       </div>
 
       {/* Table */}
-      <div className="glass-card" style={{ overflow: 'hidden' }}>
+      <div className="glass-card table-responsive-wrapper" style={{ overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ background: 'var(--bg-hover)', borderBottom: '1px solid var(--border-color)' }}>

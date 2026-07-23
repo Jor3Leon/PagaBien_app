@@ -501,16 +501,16 @@ export const ReportesView: React.FC<ReportesProps> = ({ ingresos, gastos, cuenta
   };
 
   return (
-    <div className="animate-fade-in" style={{ padding: '24px' }}>
+    <div className="dashboard-container">
       {/* Header con Selector de Mes y Acciones BI */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
+      <div className="module-header-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+        <div className="module-header-info">
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800 }}>Informes y Analítica BI</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Business Intelligence ERP: Indicadores de rendimiento, informes ejecutivos y exportación oficial</p>
         </div>
 
         {/* Filtro por Mes */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="module-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-card)', padding: '8px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
             <Calendar size={18} style={{ color: 'var(--primary)' }} />
             <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)' }}>Periodo:</span>
@@ -532,16 +532,16 @@ export const ReportesView: React.FC<ReportesProps> = ({ ingresos, gastos, cuenta
           </div>
 
           <button className="btn btn-primary" onClick={exportPDF} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <FileText size={16} /> Descargar PDF BI (Detallado)
+            <FileText size={16} /> Descargar PDF BI
           </button>
           <button className="btn btn-secondary" onClick={exportExcel} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <FileSpreadsheet size={16} /> Descargar Excel BI (Profesional)
+            <FileSpreadsheet size={16} /> Descargar Excel BI
           </button>
         </div>
       </div>
 
       {/* KPI Cards BI Estilo Power BI Executive Summary */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+      <div className="metrics-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
         
         {/* KPI 1: Márgen de Utilidad */}
         <div className="glass-card" style={{ padding: '18px' }}>
@@ -594,7 +594,7 @@ export const ReportesView: React.FC<ReportesProps> = ({ ingresos, gastos, cuenta
       </div>
 
       {/* Tarjetas de Selección de Tipo de Reporte BI */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+      <div className="bi-report-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '24px' }}>
         
         {/* P&L / Gastos */}
         <div 
@@ -668,9 +668,10 @@ export const ReportesView: React.FC<ReportesProps> = ({ ingresos, gastos, cuenta
           } ({getFormattedPeriodText()})
         </h3>
 
-        {reportType === 'pyl' && (
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead>
+        <div className="table-responsive-wrapper">
+          {reportType === 'pyl' && (
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <thead>
               <tr style={{ background: 'var(--bg-hover)', borderBottom: '1px solid var(--border-color)' }}>
                 <th style={{ padding: '14px 18px', color: 'var(--text-muted)' }}>Concepto Financiero</th>
                 <th style={{ padding: '14px 18px', color: 'var(--text-muted)', textAlign: 'right' }}>Monto ({currency.symbol})</th>
@@ -824,6 +825,7 @@ export const ReportesView: React.FC<ReportesProps> = ({ ingresos, gastos, cuenta
             </tbody>
           </table>
         )}
+        </div>
       </div>
     </div>
   );
