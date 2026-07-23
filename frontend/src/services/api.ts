@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000';
 
 export async function fetchModuleData(endpoint: string, userEmail?: string) {
   try {
