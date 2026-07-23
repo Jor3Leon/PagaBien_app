@@ -3,7 +3,7 @@ services:
   - type: web
     name: pagabien-backend
     env: node
-    plan: starter # Se puede cambiar a 'free', pero 'starter' es recomendado para discos persistentes.
+    plan: free
     rootDir: backend
     buildCommand: npm install && npm run build
     startCommand: npm run start:prod
@@ -11,13 +11,9 @@ services:
       - key: PORT
         value: 3000
       - key: DATABASE_URL
-        value: file:/data/dev.db
+        sync: false # El usuario ingresará su URI de MongoDB Atlas manualmente en Render
       - key: NODE_ENV
         value: production
-    disk:
-      name: sqlite-data
-      mountPath: /data
-      sizeGB: 1
 
   # Frontend Static Site (Vite React)
   - type: web

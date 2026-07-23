@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Ingreso {
-  id             String   @id @default(uuid())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   userEmail      String   @default("global")
   fecha          String
   descripcion    String
@@ -20,7 +20,7 @@ model Ingreso {
 }
 
 model Gasto {
-  id             String   @id @default(uuid())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   userEmail      String   @default("global")
   fecha          String
   descripcion    String
@@ -32,7 +32,7 @@ model Gasto {
 }
 
 model CuentaPorPagar {
-  id          String   @id @default(uuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   userEmail   String   @default("global")
   fecha       String
   descripcion String
