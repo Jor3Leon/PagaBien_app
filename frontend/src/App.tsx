@@ -27,13 +27,16 @@ import {
   LogOut,
   RefreshCw,
   Copy,
-  CheckCircle2
+  CheckCircle2,
+  Menu,
+  X
 } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
   const [activeModule, setActiveModule] = useState<ModuleType>('dashboard');
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { currency, setCurrency } = useCurrency();
   const { 
     user, 
@@ -188,17 +191,32 @@ const MainAppContent: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-main)' }}>
+    <div className="app-container">
+      {/* Sidebar Overlay for Mobile backdrop */}
+      {isSidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
+      )}
+
       {/* Sidebar Navigation */}
-      <aside style={{ width: '260px', background: 'var(--bg-card)', borderRight: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid var(--border-color)' }}>
-          <div style={{ background: 'var(--primary)', width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800 }}>
-            PB
+      <aside className={`app-sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+        <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ background: 'var(--primary)', width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800 }}>
+              PB
+            </div>
+            <div>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.5px' }}>PagaBien</h2>
+              <span className="badge badge-success" style={{ fontSize: '0.65rem' }}>ERP Suite</span>
+            </div>
           </div>
-          <div>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.5px' }}>PagaBien</h2>
-            <span className="badge badge-success" style={{ fontSize: '0.65rem' }}>ERP Suite</span>
-          </div>
+          {/* Close Sidebar Button for Mobile drawer */}
+          <button 
+            className="btn-icon mobile-only" 
+            onClick={() => setIsSidebarOpen(false)}
+            style={{ display: 'none' }} /* controlled via CSS display override */
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <nav style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
@@ -264,24 +282,33 @@ const MainAppContent: React.FC = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <main className="app-main">
         {/* Top Header */}
         <header className="glass-nav" style={{ height: '70px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 28px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {/* Hamburger Menu Button for Mobile */}
+            <button 
+              className="btn-icon mobile-only-flex"
+              onClick={() => setIsSidebarOpen(true)}
+              style={{ display: 'none' }} /* controlled via CSS display override */
+            >
+              <Menu size={22} />
+            </button>
+
             <button 
               onClick={() => setIsSyncModalOpen(true)}
-              className="badge badge-info" 
+              className="badge badge-info sync-text" 
               style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', border: 'none' }}
               title="Abrir Sincronización Google Sheets"
             >
-              <Sheet size={14} /> Google Sheets Sync: {spreadsheetId ? 'Configurado' : 'Pendiente'}
+              <Sheet size={14} /> <span className="sync-text-label">Google Sheets Sync: {spreadsheetId ? 'Configurado' : 'Pendiente'}</span>
             </button>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="header-actions-group" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {/* Currency Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--bg-hover)', padding: '4px 10px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <Globe size={16} style={{ color: 'var(--text-muted)' }} />
+              <Globe size={16} className="currency-selector-label" style={{ color: 'var(--text-muted)' }} />
               <select 
                 value={currency.code} 
                 onChange={(e) => {
@@ -309,6 +336,7 @@ const MainAppContent: React.FC = () => {
             {/* User Profile & Logout Button */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div 
+                className="user-profile-widget"
                 onClick={() => setIsLoginModalOpen(true)}
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', background: 'var(--bg-hover)', padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}
               >
@@ -317,9 +345,9 @@ const MainAppContent: React.FC = () => {
                   alt={user?.name || 'Usuario'}
                   style={{ width: '28px', height: '28px', borderRadius: '50%' }}
                 />
-                <div style={{ fontSize: '0.85rem' }}>
+                <div style={{ fontSize: '0.85rem' }} className="user-name-text">
                   <div style={{ fontWeight: 700, lineHeight: 1.2 }}>{user?.name || 'Usuario'}</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>{user?.email || 'Conectado'}</div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }} className="user-email-text">{user?.email || 'Conectado'}</div>
                 </div>
               </div>
 

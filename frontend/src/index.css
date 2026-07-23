@@ -260,3 +260,170 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ==========================================================================
+   Responsive & Multi-platform CSS Rules (Samsung S20, iPhone 14/15, etc.)
+   ========================================================================== */
+
+/* Layout classes */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-main);
+  overflow-x: hidden;
+}
+
+/* Sidebar Drawer on Mobile */
+.app-sidebar {
+  width: 260px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents flex children from breaking parent layout */
+}
+
+/* Mobile Screens (S20, iPhone 14, etc.) */
+@media (max-width: 991px) {
+  /* Sidebar turned into off-canvas drawer */
+  .app-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(-100%);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .app-sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* Overlay behind sidebar when open */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 45;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  /* Layout modifications */
+  header.glass-nav {
+    padding: 0 16px !important;
+    gap: 12px !important;
+  }
+
+  /* Hide unnecessary textual info in header to avoid overlap */
+  .user-email-text {
+    display: none !important;
+  }
+
+  .sync-text {
+    font-size: 0.7rem !important;
+    padding: 4px 8px !important;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 576px) {
+  /* Let header items flow or wrap nicely */
+  header.glass-nav {
+    gap: 8px !important;
+  }
+
+  .header-actions-group {
+    gap: 8px !important;
+  }
+
+  .currency-selector-label {
+    display: none !important; /* Hide globe icon/text label */
+  }
+
+  .user-profile-widget {
+    padding: 4px !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .user-name-text {
+    display: none !important; /* Only show avatar on tiny screens */
+  }
+}
+
+/* Visibility Utilities */
+.mobile-only {
+  display: none !important;
+}
+
+.mobile-only-flex {
+  display: none !important;
+}
+
+@media (max-width: 991px) {
+  .mobile-only {
+    display: block !important;
+  }
+  
+  .mobile-only-flex {
+    display: flex !important;
+  }
+}
+
+/* Dashboard Responsiveness */
+.dashboard-container {
+  padding: 24px;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.dashboard-chart-card {
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.dashboard-chart-wrapper {
+  width: 100%;
+  height: 360px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px !important;
+  }
+  
+  .dashboard-chart-card {
+    padding: 16px !important;
+  }
+  
+  .dashboard-chart-wrapper {
+    height: 280px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 12px !important;
+  }
+  
+  .dashboard-chart-card {
+    padding: 12px 8px !important;
+  }
+  
+  .dashboard-chart-wrapper {
+    height: 230px !important;
+  }
+}
+
+
+

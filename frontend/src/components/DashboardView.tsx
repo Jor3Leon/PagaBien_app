@@ -150,7 +150,7 @@ export const DashboardView: React.FC<DashboardProps> = ({ ingresos, gastos, cuen
   };
 
   return (
-    <div className="animate-fade-in" style={{ padding: '24px' }}>
+    <div className="dashboard-container">
       {/* Header con Selector de Mes */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
@@ -268,7 +268,7 @@ export const DashboardView: React.FC<DashboardProps> = ({ ingresos, gastos, cuen
       </div>
 
       {/* Gráfica Profesional Multidimensional Estilo Power BI */}
-      <div className="glass-card" style={{ padding: '24px', marginBottom: '24px' }}>
+      <div className="glass-card dashboard-chart-card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -280,8 +280,8 @@ export const DashboardView: React.FC<DashboardProps> = ({ ingresos, gastos, cuen
             </p>
           </div>
         </div>
-
-        <div style={{ width: '100%', height: '360px' }}>
+ 
+        <div className="dashboard-chart-wrapper">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={powerBIData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" opacity={0.6} />
