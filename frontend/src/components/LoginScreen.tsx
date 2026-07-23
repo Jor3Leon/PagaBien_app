@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGoogleAuth } from '../context/GoogleAuthContext';
 import { authenticateGoogleUser } from '../services/api';
-import { ShieldCheck, Lock, Mail, ArrowRight, Sparkles, Sheet, Smartphone, UserCheck, X, WifiOff } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, ArrowRight, Sparkles, Sheet, Smartphone, UserCheck, X } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -15,13 +15,13 @@ export const LoginScreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [offlineMode, setOfflineMode] = useState(false);
+
   
   // State for Google Account Prompt
   const [showGooglePrompt, setShowGooglePrompt] = useState(false);
   const [googleEmail, setGoogleEmail] = useState('');
   const [googleName, setGoogleName] = useState('');
-  const [gisReady, setGisReady] = useState(false);
+
 
   // Helper to open Google prompt with clean state (Bug 7)
   const openGooglePrompt = useCallback(() => {
